@@ -4,6 +4,7 @@
 namespace Armandsar\QuickView;
 
 use Illuminate\Contracts\View\Factory as ViewFactory;
+use Illuminate\Support\Arr;
 
 
 class ViewResolver
@@ -19,7 +20,7 @@ class ViewResolver
 
     public function call()
     {
-        $trace = array_last(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3));
+        $trace = Arr::last(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3));
 
         $class = $trace['class'];
         $method = snake_case($trace['function']);
