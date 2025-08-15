@@ -4,6 +4,8 @@
 namespace Armandsar\QuickView;
 
 use Illuminate\Contracts\View\Factory as ViewFactory;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 
 class ViewResolver
@@ -19,14 +21,14 @@ class ViewResolver
 
     public function call()
     {
-        $trace = array_last(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3));
+        $trace = Arr::last(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3));
 
         $class = $trace['class'];
-        $method = snake_case($trace['function']);
+        $method = Str::snake($trace['function']);
 
         $class = str_replace("App\\Http\\Controllers\\", '', $class);
         $class = preg_replace('/Controller$/', '', $class);
-        $class = snake_case($class);
+        $class = Str::snake($class);
         $class = str_replace('\\_', '.', $class);
 
         $view = $class . '.' . $method;
